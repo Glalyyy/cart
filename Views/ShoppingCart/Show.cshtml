@@ -1,0 +1,33 @@
+﻿@model EdithTour.Models.Cart
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Show</h2>
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Items)
+            {
+                double total = Convert.ToDouble(item.inside.Price * item.quanlity);
+                @Html.DisplayFor(model => item.inside.Name)<br />
+
+                <img src="@Url.Content(item.inside.Image)" style="width: 100px;height: 100px;" /><br />
+
+                using (Html.BeginForm("Update_Quantity_Cart", "ShoppingCart"))
+                {
+                    <input type="hidden" value="@item.inside.ID_tour_inside" name="ID_tour_inside" />
+                    <input type="number" value="@item.quanlity" name="quantity" />
+                    <input type="submit" value="Update Quanlity" />
+                }
+
+                <p>@total</p>
+
+            }
+        </div>
+    </div>
+}
